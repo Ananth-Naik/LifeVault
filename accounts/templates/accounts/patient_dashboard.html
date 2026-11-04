@@ -1,0 +1,457 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>LifeVault - Patient Dashboard</title>
+
+    <link rel="stylesheet"
+          href="{% static 'accounts/css/dashboard.css' %}">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <div class="logo-icon">
+                ♥
+            </div>
+
+            <div>
+                <h2>LifeVault</h2>
+                <p>Your Health. Secured for Life.</p>
+            </div>
+
+        </div>
+
+
+        <nav class="nav-menu">
+
+            <a href="#" class="active">
+                🏠 Dashboard
+            </a>
+
+            <a href="#">
+                👤 Profile
+            </a>
+
+            <a href="{% url 'emergency_contact' %}">
+                🚨 Emergency Contact
+            </a>
+
+            <a href="#">
+                🏥 Medical Information
+            </a>
+
+            <a href="#">
+                📄 Documents
+            </a>
+
+           <a href="{% url 'lifevault_card' %}">
+    🪪 LifeVault Card
+</a>
+
+            <a href="#">
+                📋 Access Logs
+            </a>
+
+            <a href="#">
+                ⚙️ Settings
+            </a>
+
+            <a href="#" class="logout">
+                🚪 Logout
+            </a>
+
+        </nav>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="main-content">
+
+        <!-- HEADER -->
+
+        <header class="top-header">
+
+            <div class="welcome">
+
+                <h1>
+                    Welcome back,
+                    {{ request.user.full_name }} 👋
+                </h1>
+
+                <p>
+                    Here's your health summary
+                </p>
+
+            </div>
+
+
+            <div class="user-info">
+
+                <div class="user-avatar">
+                    {{ request.user.full_name|first }}
+                </div>
+
+                <div>
+
+                    <strong>
+                        {{ request.user.full_name }}
+                    </strong>
+
+                    <p>Patient</p>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- SUMMARY -->
+
+        <section class="summary-grid">
+
+            <div class="summary-card">
+
+                <h4>LifeVault ID</h4>
+
+                <h2>
+                    {{ request.user.lifevault_id }}
+                </h2>
+
+                <p>
+                    Unique Patient Identifier
+                </p>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <h4>Blood Group</h4>
+
+                <h2>
+                    {{ form.blood_group.value|default:"Not Added" }}
+                </h2>
+
+                <p>
+                    Emergency information
+                </p>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <h4>Blood Pressure</h4>
+
+                <h2>
+                    {{ form.blood_pressure.value|default:"Not Added" }}
+                </h2>
+
+                <p>
+                    Health information
+                </p>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <h4>Emergency Phone</h4>
+
+                <h2>
+                    {{ form.emergency_phone.value|default:"Not Added" }}
+                </h2>
+
+                <p>
+                    Primary emergency contact
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- CONTENT -->
+
+        <section class="content-grid">
+
+
+            <!-- LEFT -->
+
+            <div>
+
+
+                <!-- LIFEVAULT CARD -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h2>
+                            LifeVault Card
+                        </h2>
+
+                        <p>
+                            Your digital identity for secure healthcare
+                        </p>
+
+                    </div>
+
+
+                    <div class="lifevault-card">
+
+                        <h2>
+                            🛡 LifeVault
+                        </h2>
+
+                        <div class="patient-name">
+                            {{ request.user.full_name }}
+                        </div>
+
+                        <div class="patient-role">
+                            Patient
+                        </div>
+
+
+                        <div>
+
+                            <small>
+                                LifeVault ID
+                            </small>
+
+                            <br>
+
+                            <span class="lifevault-id">
+
+                                {{ request.user.lifevault_id }}
+
+                            </span>
+
+                        </div>
+
+
+                        <div class="card-info">
+
+                            <p>
+                                📞
+                                Emergency:
+                                {{ form.emergency_phone.value|default:"Not Added" }}
+                            </p>
+
+                            <p>
+                                🩸
+                                Blood Group:
+                                {{ form.blood_group.value|default:"Not Added" }}
+                            </p>
+
+                        </div>
+
+
+                        <div class="button-row">
+
+                            <a href="#"
+                               class="btn btn-primary">
+
+                                🪪 View Card
+
+                            </a>
+
+                            <a href="#"
+                               class="btn btn-secondary">
+
+                                ⬇ Download Card
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PROFILE -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h2>
+                            Patient Information
+                        </h2>
+
+                        <p>
+                            Keep your emergency medical information updated.
+                        </p>
+
+                    </div>
+
+
+                    <form method="POST"
+                          class="profile-form">
+
+                        {% csrf_token %}
+
+                        {{ form.as_p }}
+
+                        <button type="submit"
+                                class="btn btn-primary">
+
+                            Save Profile
+
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT -->
+
+            <div>
+
+
+                <!-- QUICK ACTIONS -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <h2>
+                            Quick Actions
+                        </h2>
+
+                    </div>
+
+
+                    <div class="quick-actions">
+
+                        <a href="#"
+                           class="action">
+
+                            <div class="action-icon">
+                                👤
+                            </div>
+
+                            <h4>
+                                Update Profile
+                            </h4>
+
+                            <p>
+                                Update your details
+                            </p>
+
+                        </a>
+
+
+                        <a href="{% url 'emergency_contact' %}"
+                           class="action">
+
+                            <div class="action-icon">
+                                🚨
+                            </div>
+
+                            <h4>
+                                Emergency Contact
+                            </h4>
+
+                            <p>
+                                Manage contact
+                            </p>
+
+                        </a>
+
+
+                        <a href="#"
+                           class="action">
+
+                            <div class="action-icon">
+                                🏥
+                            </div>
+
+                            <h4>
+                                Medical Information
+                            </h4>
+
+                            <p>
+                                View health details
+                            </p>
+
+                        </a>
+
+
+                        <a href="#"
+                           class="action">
+
+                            <div class="action-icon">
+                                📄
+                            </div>
+
+                            <h4>
+                                My Documents
+                            </h4>
+
+                            <p>
+                                Medical documents
+                            </p>
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- EMERGENCY -->
+
+                <div class="card">
+
+                    <div class="emergency-box">
+
+                        <h3>
+                            🚨 In Case of Emergency
+                        </h3>
+
+                        <p>
+                            Show your LifeVault Card or share
+                            your LifeVault ID with an authorized doctor.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+</body>
+
+</html>

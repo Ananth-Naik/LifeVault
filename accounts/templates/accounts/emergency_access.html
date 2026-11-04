@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Emergency Access | LifeVault</title>
+</head>
+
+<body>
+
+    <h1>🚨 LifeVault Emergency Access</h1>
+
+    {% if error %}
+
+        <h2>{{ error }}</h2>
+
+    {% else %}
+
+        <h2>Patient Identified</h2>
+
+        <p>
+            Patient Name:
+            <strong>{{ patient.full_name }}</strong>
+        </p>
+
+        <p>
+            LifeVault ID:
+            <strong>{{ patient.lifevault_id }}</strong>
+        </p>
+
+        <p>
+            Doctor authentication is required
+            to access medical information.
+        </p>
+
+    {% endif %}
+
+</body>
+
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>LifeVault - Patient Profile</title>
+</head>
+
+<body>
+
+    <h1>LifeVault</h1>
+
+    <h2>My Profile</h2>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">
+            Save Profile
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="{% url 'patient_dashboard' %}">
+        Back to Dashboard
+    </a>
+
+</body>
+
+</html>

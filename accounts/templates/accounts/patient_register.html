@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LifeVault - Patient Registration</title>
+</head>
+
+<body>
+
+    <h1>LifeVault</h1>
+
+    <h2>Patient Registration</h2>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">
+            Register
+        </button>
+
+    </form>
+
+</body>
+</html>

@@ -1,0 +1,182 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>LifeVault Card</title>
+
+<link rel="stylesheet"
+      href="{% static 'accounts/css/dashboard.css' %}">
+```
+
+</head>
+
+<body>
+
+<div class="main-content">
+
+```
+<div class="card">
+
+    <!-- Page Header -->
+    <div class="card-header">
+
+        <h2>🪪 LifeVault Card</h2>
+
+        <p>
+            Your secure digital medical identity
+        </p>
+
+    </div>
+
+
+    <!-- LifeVault Card -->
+    <div class="lifevault-card">
+
+        <!-- Card Header -->
+        <div class="lifevault-card-header">
+
+            <div>
+
+                <h2>🛡 LifeVault</h2>
+
+                <p>Secure Medical Identity</p>
+
+            </div>
+
+            <div class="patient-role">
+
+                PATIENT
+
+            </div>
+
+        </div>
+
+
+        <!-- Patient Information -->
+        <div class="patient-section">
+
+            <div class="patient-details">
+
+                <h2>
+                    {{ user.full_name }}
+                </h2>
+
+                <p>
+                    LifeVault ID:
+                    <strong>
+                        {{ user.lifevault_id }}
+                    </strong>
+                </p>
+
+                <p>
+                    Email:
+                    {{ user.email }}
+                </p>
+
+            </div>
+
+
+            <!-- QR Code -->
+            <div class="qr-section">
+
+                {% if user.qr_code %}
+
+                    <img
+                        src="{{ user.qr_code.url }}"
+                        alt="LifeVault QR Code"
+                        width="150"
+                        height="150"
+                    >
+
+                    <p>
+                        Scan for emergency access
+                    </p>
+
+                {% else %}
+
+                    <p>
+                        QR code unavailable
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- Card Information -->
+        <div class="card-information">
+
+            <div class="information-item">
+
+                <span>LifeVault ID</span>
+
+                <strong>
+                    {{ user.lifevault_id }}
+                </strong>
+
+            </div>
+
+
+            <div class="information-item">
+
+                <span>Account Status</span>
+
+                <strong>
+                    {{ user.account_status }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- Emergency Notice -->
+        <div class="emergency-notice">
+
+            <strong>
+                🚨 Emergency Access
+            </strong>
+
+            <p>
+                This card helps authorized healthcare
+                professionals quickly identify the patient
+                during an emergency.
+            </p>
+
+        </div>
+
+
+        <!-- Buttons -->
+        <div class="button-row">
+
+            <a
+                href="{% url 'patient_dashboard' %}"
+                class="btn btn-secondary"
+            >
+                ← Back to Dashboard
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</div>
+
+</body>
+
+</html>
